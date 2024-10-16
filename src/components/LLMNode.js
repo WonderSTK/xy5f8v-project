@@ -8,7 +8,7 @@ const LLMNode = ({ data }) => {
   const dispatch = useDispatch();  
   const [localData, setLocalData] = useState({
     model: 'gpt-3.5',
-    apiBase: 'https/openai.base.link',
+    apiBase: 'https://ai.google.dev/api',
     apiKey: '',
     maxTokens: 100,
     temperature: 0.5,
@@ -82,12 +82,12 @@ const LLMNode = ({ data }) => {
             value={localData.model}
             onChange={(e) => handleChange('model', e.target.value)}
           >
-            <option value="gpt-3.5">gpt-3.5</option>
-            <option value="gpt-4">gpt-4</option>
+            <option value="gpt-3.5">gemini-1.5-flash</option>
+            <option value="gpt-4">coming soon</option>
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">OpenAI API Base</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">GoogleGenerativeAI API Base</label>
           <input
             type="text"
             className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -97,7 +97,7 @@ const LLMNode = ({ data }) => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">OpenAI Key</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">GoogleGenerativeAI API Key</label>
           <input
             type="password"
             className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"

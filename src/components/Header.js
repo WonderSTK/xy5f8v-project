@@ -2,7 +2,8 @@ import React from 'react';
 import { Play } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResponse } from '../utils/outputSlice'; 
-import OpenAI from 'openai';
+//import OpenAI from 'openai';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { toast } from 'react-toastify'; // toast for notifications
 
 const Header = () => {
@@ -10,10 +11,7 @@ const Header = () => {
   const prompt = useSelector((state) => state.input.prompt); 
   const apiKey = useSelector((state) => state.llm.apiKey); 
 
-  const openai = new OpenAI({
-    apiKey: apiKey, 
-    dangerouslyAllowBrowser: true,
-  });
+  const genAI = new GoogleGenerativeAI(apiKey);
 
   const handleRunClick = async () => {
     //if the prompt is empty
@@ -30,17 +28,18 @@ const Header = () => {
 
     try {
       //an API call to OpenAI
-      const gptSearchResult = await openai.chat.completions.create({
-        messages: [{ role: "user", content: prompt }],
-        model: "gpt-3.5-turbo",
-      });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      
+      const geminiResult = await model.generateContent(prompt);
 
       // response
-      const output = gptSearchResult.choices[0]?.message?.content;
+      const response = await geminiResult.response;
+      const text = response.text();
+      //const output = gptSearchResult.choices[0]?.message?.content;
 
-      if (output) {
+      if (text) {
         // Dispatch the response to the output slice
-        dispatch(setResponse(output));
+        dispatch(setResponse(text));
 
         // Success notification
         toast.success("API call successful! Response received.");

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@google/generative-ai": "^0.21.0",
     "@headlessui/react": "^2.1.9",
     "@heroicons/react": "^1.0.6",
     "@reduxjs/toolkit": "^2.2.7",
